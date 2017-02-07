@@ -168,7 +168,7 @@ const byte font [96] [5] PROGMEM = {
 };
 
 // glue routines for version 1.0+ of the IDE
-uint8_t i2c_read ()
+uint8_t I2C_graphical_LCD_display::i2c_read ()
 {
 #if defined(ARDUINO) && ARDUINO >= 100
   return Wire.read ();
@@ -177,7 +177,7 @@ uint8_t i2c_read ()
 #endif
 } // end of Nunchuk::i2c_read
 
-void i2c_write (int data)
+void I2C_graphical_LCD_display::i2c_write (int data)
 {
 #if defined(ARDUINO) && ARDUINO >= 100
   Wire.write (data);
@@ -197,18 +197,20 @@ void I2C_graphical_LCD_display::startSend ()
     digitalWrite (_ssPin, LOW); 
     SPI.transfer (_port << 1);
     }
-  else
+  else{
     Wire.beginTransmission (_port);
-  
+  }
 }  // end of I2C_graphical_LCD_display::startSend
 
 // send a byte via SPI or I2C
 void I2C_graphical_LCD_display::doSend (const byte what)   
 {
-  if (_ssPin)
+  if (_ssPin){
     SPI.transfer (what);
-  else
+  }
+  else{
     i2c_write (what);
+  }
 }  // end of I2C_graphical_LCD_display::doSend
 
 // finish sending to MCP23017 
