@@ -231,7 +231,8 @@ public:
               const byte y2 = 63,   
               const byte val = 1);  // what to draw (0 = white, 1 = black) 
   void scroll (const byte y = 0);   // set scroll position
-
+  uint8_t i2c_read ();
+  void i2c_write (int data)
 #if defined(ARDUINO) && ARDUINO >= 100
 	size_t write(uint8_t c) {letter(c, _invmode); return 1; }
 #else
